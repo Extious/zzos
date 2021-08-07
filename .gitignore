@@ -1,0 +1,5 @@
+*
+!.config
+!.gitignore
+!chroot_config.sh
+!onekey.sh

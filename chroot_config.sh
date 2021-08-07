@@ -7,6 +7,7 @@ export HOME=/root
 export LC_ALL=C
 
 echo "nameserver 114.114.114.114" > /etc/resolv.conf
+echo "lpyOS" > /etc/hostname
 echo "root:root" | chpasswd
 
 apt-get update
