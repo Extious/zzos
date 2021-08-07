@@ -63,18 +63,24 @@ find $lpyos -name '*debconf*' | tac | xargs rm -rf
 find $lpyos -name '*X11*' | tac | xargs rm -rf
 find $lpyos -name '*sftp*' | tac | xargs rm -rf
 find $lpyos -name '*pydoc*' | tac | xargs rm -rf
+find $lpyos -name '*pdb*' | tac | xargs rm -rf
+find $lpyos -name '*freedesktop*' | tac | xargs rm -rf
 
-find $lpyos -name '*perl*' | tac | xargs rm -rf
-find $lpyos -name '*.pl' | tac | xargs rm -rf
+# find $lpyos -name '*perl*' | tac | xargs rm -rf
+# find $lpyos -name '*.pl' | tac | xargs rm -rf
+# find $lpyos -name '*dash*' | tac | xargs rm -rf
+# find $lpyos -name 'file' | tac | xargs rm -rf
+# rm $lpyos/usr/bin/{systemd-analyze,openssl,wget,gpgv,ssh-keyscan,ssh-add,ssh-agent,localedef,diff,install,man}
+# rm $lpyos/usr/bin/{mawk,vdir,dir,top,sort,lsblk,partx,gzip,date,factor,sha*,tic}
+# rm -rf $lpyos/lib/python3.8/{test,unittest,email,http,multiprocessing,html,doctest.py,urllib}
 
-# find $lpyos -name '*python*' | tac | xargs rm -rf
-# find $lpyos -name '*py*3*' | tac | xargs rm -rf
-# find $lpyos -name '*.py' | tac | xargs rm -rf
-# rm -rf $lpyos/usr/share/pyshared
-# find $lpyos -name '*networkd-dispatcher*' | tac | xargs rm -rf
+find $lpyos -name '*python*' | tac | xargs rm -rf
+find $lpyos -name '*py*3*' | tac | xargs rm -rf
+find $lpyos -name '*.py' | tac | xargs rm -rf
+rm -rf $lpyos/usr/share/pyshared
+find $lpyos -name '*networkd-dispatcher*' | tac | xargs rm -rf
 
 # find $lpyos -name '*terminfo*' | tac | xargs rm -rf # could not run 'clear' if deleted
 
-rm $lpyos/usr/bin/{systemd-analyze,openssl,wget,gpgv,ssh-keyscan,ssh-add,ssh-agent,localedef,diff,install,man}
 
 rm -rf $lpyos/usr/share/doc
