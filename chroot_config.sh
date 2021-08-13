@@ -12,6 +12,7 @@ echo "root:root" | chpasswd
 
 apt-get update
 echo -e "6\n70\n" | apt-get install -y openssh-server
+apt-get install -y pciutils iproute2
 
 ln -s /lib/systemd/systemd /init
 
