@@ -4,4 +4,6 @@
 !chroot_config.sh
 !mkinit.sh
 !mkker.sh
+!pack.sh
+!patch.sh
 !onekey.sh
