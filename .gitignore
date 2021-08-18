@@ -2,4 +2,5 @@
 !.config
 !.gitignore
 !chroot_config.sh
+!mkinit.sh
 !onekey.sh
