@@ -1,6 +1,6 @@
 #!/bin/bash
 
-lpyos=lpyos
+lpyos=${1:-lpyos}
 rootfs=ubuntu-focal-oci-amd64-root.tar.gz
 rm -rf $lpyos
 
