@@ -29,6 +29,7 @@ sed -i 's/Subsystem/# Subsystem/g' $lpyos/etc/ssh/sshd_config
 sed -i 's/#DNS=/DNS=114.114.114.114/g' $lpyos/etc/systemd/resolved.conf
 sed -i 's/#NTP=/NTP=ntp.aliyun.com/g' $lpyos/etc/systemd/timesyncd.conf
 echo 'LANG=C.UTF-8' > $lpyos/etc/default/locale
+echo 'kernel.printk = 1 4 1 7' >> $lpyos/etc/sysctl.conf
 cat << EOF > $lpyos/etc/systemd/network/20-wired.network
 [Match]
 Name=e*
@@ -78,6 +79,8 @@ find $lpyos -name '*pdb*' | tac | xargs rm -rf
 # rm $lpyos/usr/bin/{systemd-analyze,openssl,wget,gpgv,ssh-keyscan,ssh-add,ssh-agent,localedef,diff,install,man}
 # rm $lpyos/usr/bin/{mawk,vdir,dir,top,sort,lsblk,partx,gzip,date,factor,sha*,tic}
 # rm -rf $lpyos/lib/python3.8/{test,unittest,email,http,multiprocessing,html,doctest.py,urllib}
+
+rm $lpyos/usr/bin/systemd-analyze
 
 find $lpyos -name '*python*' | tac | xargs rm -rf
 find $lpyos -name '*py*3*' | tac | xargs rm -rf
