@@ -8,3 +8,5 @@
 !patch.sh
 !custom.sh
 !onekey.sh
+!rtl_nic
+!rtl_nic/*
