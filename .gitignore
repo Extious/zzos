@@ -9,5 +9,6 @@
 !patch.sh
 !custom.sh
 !onekey.sh
+!mkgrub.sh
 !rtl_nic
 !rtl_nic/*
