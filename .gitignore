@@ -1,6 +1,7 @@
 *
 !.config
 !.gitignore
+!prepare.sh
 !chroot_config.sh
 !mkinit.sh
 !mkker.sh

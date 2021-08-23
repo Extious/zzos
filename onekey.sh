@@ -3,6 +3,7 @@
 
 os_name=${1:-lpyos}
 
+bash prepare.sh
 bash mkker.sh $os_name
 bash mkinit.sh $os_name
 bash patch.sh $os_name
