@@ -3,7 +3,7 @@
 
 os_name=${1:-lpyos}
 
-kernel_url=$(curl -s https://www.kernel.org/ | grep -Pzo "latest_link.*\n.*$" | grep href | awk -F \" '{print $2}')
+kernel_url=$(curl -s https://www.kernel.org/ | grep -Pzo "latest_link.*\n.*" | grep -a href | awk -F \" '{print $2}')
 kernel_fn=${kernel_url##*/}
 kernel_dir=${kernel_fn%.tar*}
 
