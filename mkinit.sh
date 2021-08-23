@@ -1,36 +1,37 @@
 #!/bin/bash
+# Copyright (C) 2021 Pengyu Liu (SeedClass 2018)
 
-lpyos=${1:-lpyos}
+os_name=${1:-lpyos}
 rootfs=ubuntu-focal-oci-amd64-root.tar.gz
-rm -rf $lpyos
+rm -rf $os_name
 
 [ -e $rootfs ] || wget https://partner-images.canonical.com/oci/focal/current/ubuntu-focal-oci-amd64-root.tar.gz
-if [ -d $lpyos.origin ]
+if [ -d $os_name.origin ]
 then
-    cp -r $lpyos.origin $lpyos
+    cp -r $os_name.origin $os_name
 else
-    mkdir -p $lpyos
-    tar xzf $rootfs -C $lpyos
+    mkdir -p $os_name
+    tar xzf $rootfs -C $os_name
 
-    mount --bind /dev $lpyos/dev
-    mount --bind /run $lpyos/run
-    cp chroot_config.sh $lpyos
-    chroot $lpyos bash chroot_config.sh
-    rm $lpyos/chroot_config.sh
-    umount $lpyos/dev
-    umount $lpyos/run
+    mount --bind /dev $os_name/dev
+    mount --bind /run $os_name/run
+    cp chroot_config.sh $os_name
+    chroot $os_name bash chroot_config.sh
+    rm $os_name/chroot_config.sh
+    umount $os_name/dev
+    umount $os_name/run
 
-    cp -r $lpyos $lpyos.origin
+    cp -r $os_name $os_name.origin
 fi
 
-sed -i 's/#PermitRootLogin.*/PermitRootLogin yes/g' $lpyos/etc/ssh/sshd_config
-sed -i 's/X11Forwarding yes/X11Forwarding no/g' $lpyos/etc/ssh/sshd_config
-sed -i 's/Subsystem/# Subsystem/g' $lpyos/etc/ssh/sshd_config
-sed -i 's/#DNS=/DNS=114.114.114.114/g' $lpyos/etc/systemd/resolved.conf
-sed -i 's/#NTP=/NTP=ntp.aliyun.com/g' $lpyos/etc/systemd/timesyncd.conf
-echo 'LANG=C.UTF-8' > $lpyos/etc/default/locale
-echo 'kernel.printk = 1 4 1 7' >> $lpyos/etc/sysctl.conf
-cat << EOF > $lpyos/etc/systemd/network/20-wired.network
+sed -i 's/#PermitRootLogin.*/PermitRootLogin yes/g' $os_name/etc/ssh/sshd_config
+sed -i 's/X11Forwarding yes/X11Forwarding no/g' $os_name/etc/ssh/sshd_config
+sed -i 's/Subsystem/# Subsystem/g' $os_name/etc/ssh/sshd_config
+sed -i 's/#DNS=/DNS=114.114.114.114/g' $os_name/etc/systemd/resolved.conf
+sed -i 's/#NTP=/NTP=ntp.aliyun.com/g' $os_name/etc/systemd/timesyncd.conf
+echo 'LANG=C.UTF-8' > $os_name/etc/default/locale
+echo 'kernel.printk = 1 4 1 7' >> $os_name/etc/sysctl.conf
+cat << EOF > $os_name/etc/systemd/network/20-wired.network
 [Match]
 Name=e*
 
@@ -38,57 +39,34 @@ Name=e*
 DHCP=yes
 EOF
 
-cat << EOF > $lpyos/etc/os-release
-NAME=lpyOS
-ID=ubuntu
-ID_LIKE=debian
-PRETTY_NAME="lpyOS"
-VERSION_ID="1.0"
-EOF
+find $os_name -name '*apt*' | tac | xargs rm -rf
+find $os_name -name '*libicu*' | tac | xargs rm -rf
+find $os_name -name '*gconv*' | tac | xargs rm -rf
+find $os_name -name '*dpkg*' | tac | xargs rm -rf
+find $os_name -name '*debconf*' | tac | xargs rm -rf
+find $os_name -name '*X11*' | tac | xargs rm -rf
+find $os_name -name '*sftp*' | tac | xargs rm -rf
+find $os_name -name '*pydoc*' | tac | xargs rm -rf
+find $os_name -name '*pdb*' | tac | xargs rm -rf
+# find $os_name -name '*freedesktop*' | tac | xargs rm -rf
 
-rm $lpyos/etc/update-motd.d/*
-cat << EOF > $lpyos/etc/profile.d/lpyos-login.sh
-echo -e "\033[1;33m
- ██╗      ██████╗  ██╗   ██╗  █████╗  ███████╗
- ██║      ██╔══██╗ ╚██╗ ██╔╝ ██╔══██╗ ██╔════╝
- ██║      ██████╔╝   ╚██╔╝   ██║  ██║ ███████╗
- ██║      ██╔═══╝     ██║    ██║  ██║ ╚════██║
- ███████╗ ██║         ██║    ╚█████╔╝ ███████║
- ╚══════╝ ╚═╝         ╚═╝     ╚════╝  ╚══════╝
-                  by Liu Pengyu Seedclass 2018\033[0m"
+# find $os_name -name '*perl*' | tac | xargs rm -rf
+# find $os_name -name '*.pl' | tac | xargs rm -rf
+# find $os_name -name '*dash*' | tac | xargs rm -rf
+# find $os_name -name 'file' | tac | xargs rm -rf
+# rm $os_name/usr/bin/{systemd-analyze,openssl,wget,gpgv,ssh-keyscan,ssh-add,ssh-agent,localedef,diff,install,man}
+# rm $os_name/usr/bin/{mawk,vdir,dir,top,sort,lsblk,partx,gzip,date,factor,sha*,tic}
+# rm -rf $os_name/lib/python3.8/{test,unittest,email,http,multiprocessing,html,doctest.py,urllib}
 
-echo "Kernel Version:"
-uname -srmo
-EOF
+rm $os_name/usr/bin/systemd-analyze
 
-find $lpyos -name '*apt*' | tac | xargs rm -rf
-find $lpyos -name '*libicu*' | tac | xargs rm -rf
-find $lpyos -name '*gconv*' | tac | xargs rm -rf
-find $lpyos -name '*dpkg*' | tac | xargs rm -rf
-find $lpyos -name '*debconf*' | tac | xargs rm -rf
-find $lpyos -name '*X11*' | tac | xargs rm -rf
-find $lpyos -name '*sftp*' | tac | xargs rm -rf
-find $lpyos -name '*pydoc*' | tac | xargs rm -rf
-find $lpyos -name '*pdb*' | tac | xargs rm -rf
-# find $lpyos -name '*freedesktop*' | tac | xargs rm -rf
+find $os_name -name '*python*' | tac | xargs rm -rf
+find $os_name -name '*py*3*' | tac | xargs rm -rf
+find $os_name -name '*.py' | tac | xargs rm -rf
+rm -rf $os_name/usr/share/pyshared
+find $os_name -name '*networkd-dispatcher*' | tac | xargs rm -rf
 
-# find $lpyos -name '*perl*' | tac | xargs rm -rf
-# find $lpyos -name '*.pl' | tac | xargs rm -rf
-# find $lpyos -name '*dash*' | tac | xargs rm -rf
-# find $lpyos -name 'file' | tac | xargs rm -rf
-# rm $lpyos/usr/bin/{systemd-analyze,openssl,wget,gpgv,ssh-keyscan,ssh-add,ssh-agent,localedef,diff,install,man}
-# rm $lpyos/usr/bin/{mawk,vdir,dir,top,sort,lsblk,partx,gzip,date,factor,sha*,tic}
-# rm -rf $lpyos/lib/python3.8/{test,unittest,email,http,multiprocessing,html,doctest.py,urllib}
-
-rm $lpyos/usr/bin/systemd-analyze
-
-find $lpyos -name '*python*' | tac | xargs rm -rf
-find $lpyos -name '*py*3*' | tac | xargs rm -rf
-find $lpyos -name '*.py' | tac | xargs rm -rf
-rm -rf $lpyos/usr/share/pyshared
-find $lpyos -name '*networkd-dispatcher*' | tac | xargs rm -rf
-
-# find $lpyos -name '*terminfo*' | tac | xargs rm -rf # could not run 'clear' if deleted
+# find $os_name -name '*terminfo*' | tac | xargs rm -rf # could not run 'clear' if deleted
 
 
-rm -rf $lpyos/usr/share/doc
+rm -rf $os_name/usr/share/doc

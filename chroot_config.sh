@@ -1,4 +1,5 @@
 #!/bin/bash
+# Copyright (C) 2021 Pengyu Liu (SeedClass 2018)
 
 mount none -t proc /proc
 mount none -t sysfs /sys
@@ -7,7 +8,6 @@ export HOME=/root
 export LC_ALL=C
 
 echo "nameserver 114.114.114.114" > /etc/resolv.conf
-echo "lpyOS" > /etc/hostname
 echo "root:root" | chpasswd
 
 apt-get update

@@ -1,4 +1,7 @@
 #!/bin/bash
+# Copyright (C) 2021 Pengyu Liu (SeedClass 2018)
+
+os_name=${1:-lpyos}
 
 kernel_url=$(curl -s https://www.kernel.org/ | grep -Pzo "latest_link.*\n.*$" | grep href | awk -F \" '{print $2}')
 kernel_fn=${kernel_url##*/}
@@ -11,6 +14,7 @@ if ! [ -e $kernel_fn ]; then
 fi
 [ -d $kernel_dir ] || tar xJf $kernel_fn
 cp .config $kernel_dir/
+sed -i "s/os_name_placeholder/$os_name/g" $kernel_dir/.config
 cd $kernel_dir
 make -j64
 cd -

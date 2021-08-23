@@ -1,10 +1,11 @@
 #!/bin/bash
+# Copyright (C) 2021 Pengyu Liu (SeedClass 2018)
 
-lpyos=${1:-lpyos}
-mkdir -p $lpyos/lib/firmware/
-cp -r rtl_nic $lpyos/lib/firmware/
+os_name=${1:-lpyos}
+mkdir -p $os_name/lib/firmware/
+cp -r rtl_nic $os_name/lib/firmware/
 
-cat << EOF > $lpyos/bin/ifup
+cat << EOF > $os_name/bin/ifup
 #!/bin/bash
 
 device=\${1:-eth0}
@@ -13,9 +14,9 @@ ip link set \$device up
 ip addr add 192.168.10.99/25 dev \$device
 ip route add default via 192.168.10.1
 EOF
-chmod +x $lpyos/bin/ifup
+chmod +x $os_name/bin/ifup
 
-cat <<EOF > $lpyos/root/mnt_test.sh
+cat <<EOF > $os_name/root/mnt_test.sh
 #!/bin/bash
 
 device=\${1:-/dev/sdc}
@@ -28,4 +29,4 @@ do
     umount /mnt
 done
 EOF
-chmod +x $lpyos/root/mnt_test.sh
+chmod +x $os_name/root/mnt_test.sh
