@@ -2,7 +2,7 @@
 # Copyright (C) 2021 Pengyu Liu (SeedClass 2018)
 
 device=${1:-/dev/sdb}
-kernel_path=${2:.}
+kernel_path=${2:-.}
 os_name=${os_name:-lpyos}
 EFI_path=${EFI_path:-grub-core}
 
