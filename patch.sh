@@ -21,8 +21,8 @@ device=\${1:-eth0}
 ipmask=\${2:-192.168.10.97/25}
 gw=\${3:-192.168.10.1}
 
-ip addr add $ipmask dev \$device
-ip route add default via $gw
+ip addr add \$ipmask dev \$device
+ip route add default via \$gw
 EOF
 chmod +x $os_name/bin/ipsetup
 
