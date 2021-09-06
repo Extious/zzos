@@ -11,10 +11,20 @@ cat << EOF > $os_name/bin/ifup
 device=\${1:-eth0}
 
 ip link set \$device up
-ip addr add 192.168.10.99/25 dev \$device
-ip route add default via 192.168.10.1
 EOF
 chmod +x $os_name/bin/ifup
+
+cat << EOF > $os_name/bin/ipsetup
+#!/bin/bash
+
+device=\${1:-eth0}
+ipmask=\${2:-192.168.10.97/25}
+gw=\${3:-192.168.10.1}
+
+ip addr add $ipmask dev \$device
+ip route add default via $gw
+EOF
+chmod +x $os_name/bin/ipsetup
 
 cat <<EOF > $os_name/root/mnt_test.sh
 #!/bin/bash
