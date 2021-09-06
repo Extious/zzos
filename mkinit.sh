@@ -5,9 +5,17 @@ os_name=${1:-lpyos}
 rootfs=ubuntu-focal-oci-amd64-root.tar.gz
 rm -rf $os_name
 
-[ -e $rootfs ] || wget https://partner-images.canonical.com/oci/focal/current/ubuntu-focal-oci-amd64-root.tar.gz
+if [ -e $rootfs ]
+then
+    rm -f SHA256SUMS
+    wget https://partner-images.canonical.com/oci/focal/current/SHA256SUMS
+    sha256sum -c SHA256SUMS --ignore-missing --strict --quiet
+    [ $? -eq 0 ] || rm -rf $rootfs $os_name $os_name.origin
+fi
+[ -e $rootfs ] || wget https://partner-images.canonical.com/oci/focal/current/$rootfs
 if [ -d $os_name.origin ]
 then
+    rm -rf $os_name
     cp -r $os_name.origin $os_name
 else
     mkdir -p $os_name

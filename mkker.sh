@@ -16,6 +16,7 @@ fi
 cp .config $kernel_dir/
 sed -i "s/os_name_placeholder/$os_name/g" $kernel_dir/.config
 cd $kernel_dir
+make olddefconfig
 make -j64
 cd -
 cp $kernel_dir/arch/x86/boot/bzImage .
