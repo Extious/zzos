@@ -12,3 +12,5 @@
 !mkgrub.sh
 !rtl_nic
 !rtl_nic/*
+!iwlwifi
+!iwlwifi/*

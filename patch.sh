@@ -4,6 +4,7 @@
 os_name=${1:-lpyos}
 mkdir -p $os_name/lib/firmware/
 cp -r rtl_nic $os_name/lib/firmware/
+cp iwlwifi/*.ucode $os_name/lib/firmware/
 
 cat << EOF > $os_name/bin/ifup
 #!/bin/bash
