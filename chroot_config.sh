@@ -8,7 +8,7 @@ export HOME=/root
 export LC_ALL=C
 
 echo "nameserver 114.114.114.114" > /etc/resolv.conf
-echo "root:root" | chpasswd
+echo "root:seedclass" | chpasswd
 
 apt-get update
 echo -e "6\n70\n" | apt-get install -y openssh-server
