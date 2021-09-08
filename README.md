@@ -18,7 +18,14 @@
 - 定制或删除custom.sh
 - 生成bzImage, initrd.xz（可以在服务器上完成）
 ```bash
-./onekey.sh [os_name]
+./onekey.sh [os_name] [btrfs|iwlwifi]
+```
+e.g.
+```bash
+./onekey.sh              # 默认参数lpyos iwlwifi
+./onekey.sh lpyos        # 默认参数iwlwifi
+./onekey.sh lpyos btrfs
+./onekey.sh lpyos iwlwifi
 ```
 - 制作启动盘（可以插U盘的主机）
 ```bash
@@ -29,7 +36,7 @@
 |文件|功能|
 |-|-|
 |rtl_nic|网卡固件|
-|.config|linux内核配置文件|
+|config.*|linux内核配置文件|
 |chroot_config|chroot模式配置initrd，安装systemd，ssh等|
 |custom.sh|个性化设置（可选）|
 |mkgrub.sh|制作启动盘|
