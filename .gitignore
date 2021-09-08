@@ -1,5 +1,6 @@
 *
-!.config
+!config.btrfs
+!config.iwlwifi
 !.gitignore
 !prepare.sh
 !chroot_config.sh

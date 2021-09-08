@@ -27,3 +27,18 @@ uname -srmo
 EOF
 
 echo "lpyOS" > $os_name/etc/hostname
+
+cat <<EOF > $os_name/root/mnt_test.sh
+#!/bin/bash
+
+device=\${1:-/dev/sdc}
+
+for ((i=1;i<=10;i++))
+do
+    echo Testing \$device\$i
+    mount \$device\$i /mnt
+    cat /mnt/info.txt
+    umount /mnt
+done
+EOF
+chmod +x $os_name/root/mnt_test.sh

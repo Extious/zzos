@@ -1,6 +1,8 @@
 #!/bin/bash
 # Copyright (C) 2021 Pengyu Liu (SeedClass 2018)
 
+feature=${1:-iwlwifi}
+
 mount none -t proc /proc
 mount none -t sysfs /sys
 mount none -t devpts /dev/pts
@@ -12,7 +14,8 @@ echo "root:seedclass" | chpasswd
 
 apt-get update
 echo -e "6\n70\n" | apt-get install -y openssh-server
-apt-get install -y pciutils iproute2 iputils-ping nano iw
+apt-get install -y pciutils iproute2 iputils-ping nano
+[ $feature == "iwlwifi" ] && apt-get install -y iw
 
 ln -s /lib/systemd/systemd /init
 ln -s /lib/systemd/system/systemd-networkd.service /etc/systemd/system/multi-user.target.wants/

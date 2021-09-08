@@ -2,6 +2,8 @@
 # Copyright (C) 2021 Pengyu Liu (SeedClass 2018)
 
 os_name=${1:-lpyos}
+feature=${2:-iwlwifi}
+
 rootfs=ubuntu-focal-oci-amd64-root.tar.gz
 rm -rf $os_name
 
@@ -24,7 +26,7 @@ else
     mount --bind /dev $os_name/dev
     mount --bind /run $os_name/run
     cp chroot_config.sh $os_name
-    chroot $os_name bash chroot_config.sh
+    chroot $os_name bash chroot_config.sh $feature
     rm $os_name/chroot_config.sh
     umount $os_name/dev
     umount $os_name/run
@@ -58,15 +60,15 @@ find $os_name -name '*pydoc*' | tac | xargs rm -rf
 find $os_name -name '*pdb*' | tac | xargs rm -rf
 # find $os_name -name '*freedesktop*' | tac | xargs rm -rf
 
-find $os_name -name '*perl*' | tac | xargs rm -rf
-find $os_name -name '*.pl' | tac | xargs rm -rf
+[ $feature == "iwlwifi" ] && find $os_name -name '*perl*' | tac | xargs rm -rf
+[ $feature == "iwlwifi" ] && find $os_name -name '*.pl' | tac | xargs rm -rf
 # find $os_name -name '*dash*' | tac | xargs rm -rf
 # find $os_name -name 'file' | tac | xargs rm -rf
 # rm $os_name/usr/bin/{systemd-analyze,openssl,wget,gpgv,ssh-keyscan,ssh-add,ssh-agent,localedef,diff,install,man}
 # rm $os_name/usr/bin/{mawk,vdir,dir,top,sort,lsblk,partx,gzip,date,factor,sha*,tic}
 # rm -rf $os_name/lib/python3.8/{test,unittest,email,http,multiprocessing,html,doctest.py,urllib}
 
-# rm $os_name/usr/bin/systemd-analyze
+[ $feature == "btrfs" ] && rm $os_name/usr/bin/systemd-analyze
 
 find $os_name -name '*python*' | tac | xargs rm -rf
 find $os_name -name '*py*3*' | tac | xargs rm -rf
