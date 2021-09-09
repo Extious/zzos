@@ -68,7 +68,7 @@ find $os_name -name '*pdb*' | tac | xargs rm -rf
 # rm $os_name/usr/bin/{mawk,vdir,dir,top,sort,lsblk,partx,gzip,date,factor,sha*,tic}
 # rm -rf $os_name/lib/python3.8/{test,unittest,email,http,multiprocessing,html,doctest.py,urllib}
 
-[ $feature == "btrfs" ] && rm $os_name/usr/bin/systemd-analyze
+[ $feature == "btrfs" ] && rm $os_name/usr/bin/{systemd-analyze,openssl} $os_name/usr/sbin/iw
 
 find $os_name -name '*python*' | tac | xargs rm -rf
 find $os_name -name '*py*3*' | tac | xargs rm -rf
@@ -79,4 +79,4 @@ find $os_name -name '*networkd-dispatcher*' | tac | xargs rm -rf
 # find $os_name -name '*terminfo*' | tac | xargs rm -rf # could not run 'clear' if deleted
 
 
-rm -rf $os_name/usr/share/doc
+rm -rf $os_name/usr/share/{doc,man}
