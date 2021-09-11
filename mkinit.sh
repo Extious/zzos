@@ -58,17 +58,11 @@ find $os_name -name '*X11*' | tac | xargs rm -rf
 find $os_name -name '*sftp*' | tac | xargs rm -rf
 find $os_name -name '*pydoc*' | tac | xargs rm -rf
 find $os_name -name '*pdb*' | tac | xargs rm -rf
-# find $os_name -name '*freedesktop*' | tac | xargs rm -rf
-
-[ $feature == "iwlwifi" ] && find $os_name -name '*perl*' | tac | xargs rm -rf
-[ $feature == "iwlwifi" ] && find $os_name -name '*.pl' | tac | xargs rm -rf
-# find $os_name -name '*dash*' | tac | xargs rm -rf
-# find $os_name -name 'file' | tac | xargs rm -rf
-# rm $os_name/usr/bin/{systemd-analyze,openssl,wget,gpgv,ssh-keyscan,ssh-add,ssh-agent,localedef,diff,install,man}
-# rm $os_name/usr/bin/{mawk,vdir,dir,top,sort,lsblk,partx,gzip,date,factor,sha*,tic}
-# rm -rf $os_name/lib/python3.8/{test,unittest,email,http,multiprocessing,html,doctest.py,urllib}
-
-[ $feature == "btrfs" ] && rm $os_name/usr/bin/{systemd-analyze,openssl} $os_name/usr/sbin/iw
+find $os_name -name '*freedesktop*' | tac | xargs rm -rf
+find $os_name -name '*dash*' | tac | xargs rm -rf
+find $os_name -name 'file' | tac | xargs rm -rf
+find $os_name -name 'man' | tac | xargs rm -rf
+find $os_name -name 'doc' | tac | xargs rm -rf
 
 find $os_name -name '*python*' | tac | xargs rm -rf
 find $os_name -name '*py*3*' | tac | xargs rm -rf
@@ -78,5 +72,9 @@ find $os_name -name '*networkd-dispatcher*' | tac | xargs rm -rf
 
 # find $os_name -name '*terminfo*' | tac | xargs rm -rf # could not run 'clear' if deleted
 
+rm -rf rm $os_name/usr/bin/{gpgv,install,sha*,localedef,factor}
 
-rm -rf $os_name/usr/share/{doc,man}
+
+[ $feature == "btrfs" ] && rm $os_name/usr/bin/systemd-analyze $os_name/usr/sbin/iw
+[ $feature == "iwlwifi" ] && find $os_name -name '*perl*' | tac | xargs rm -rf
+[ $feature == "iwlwifi" ] && find $os_name -name '*.pl' | tac | xargs rm -rf
