@@ -1,7 +1,7 @@
 #!/bin/bash
 # Copyright (C) 2021 Pengyu Liu (SeedClass 2018)
 
-os_name=${1:-lpyos}
+os_name=${1:-zzos}
 feature=${2:-iwlwifi}
 
 mkdir -p $os_name/lib/firmware/
