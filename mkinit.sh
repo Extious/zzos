@@ -64,11 +64,42 @@ find $os_name -name 'file' | tac | xargs rm -rf
 find $os_name -name 'man' | tac | xargs rm -rf
 find $os_name -name 'doc' | tac | xargs rm -rf
 
+find $os_name -name '*test*' | tac | xargs rm -rf
+find $os_name -name '*example*' | tac | xargs rm -rf
+find $os_name -name '*.o' | tac | xargs rm -rf
+find $os_name -name '*.a' | tac | xargs rm -rf
+find $os_name -name '*.log' | tac | xargs rm -rf
+find $os_name -name '*.tmp' | tac | xargs rm -rf
+find $os_name -name '*.bak' | tac | xargs rm -rf
+find $os_name -name '*.old' | tac | xargs rm -rf
+find $os_name -name 'cache' | tac | xargs rm -rf
+
 find $os_name -name '*python*' | tac | xargs rm -rf
 find $os_name -name '*py*3*' | tac | xargs rm -rf
 find $os_name -name '*.py' | tac | xargs rm -rf
 rm -rf $os_name/usr/share/pyshared
 find $os_name -name '*networkd-dispatcher*' | tac | xargs rm -rf
+
+find $os_name -name '*locale*' | tac | xargs rm -rf
+
+find $os_name -name '*alsa*' | tac | xargs rm -rf
+find $os_name -name '*pulseaudio*' | tac | xargs rm -rf
+find $os_name -name '*gstreamer*' | tac | xargs rm -rf
+
+find $os_name -name '*x11*' | tac | xargs rm -rf
+find $os_name -name '*gnome*' | tac | xargs rm -rf
+find $os_name -name '*kde*' | tac | xargs rm -rf
+
+find $os_name -name '*nano*' | tac | xargs rm -rf
+find $os_name -name '*vim*' | tac | xargs rm -rf
+
+find $os_name -name '*libX*' | tac | xargs rm -rf
+find $os_name -name '*libgtk*' | tac | xargs rm -rf
+find $os_name -name '*libqt*' | tac | xargs rm -rf
+
+# find $os_name -name '*sudo*' | tac | xargs rm -rf
+# find $os_name -name '*passwd*' | tac | xargs rm -rf
+find $os_name -name '*dbus*' | tac | xargs rm -rf
 
 # find $os_name -name '*terminfo*' | tac | xargs rm -rf # could not run 'clear' if deleted
 

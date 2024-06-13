@@ -21,8 +21,8 @@ cat << EOF > $os_name/bin/ipsetup
 #!/bin/bash
 
 device=\${1:-eth0}
-ipmask=\${2:-192.168.10.97/25}
-gw=\${3:-192.168.10.1}
+ipmask=\${2:-192.168.111.10/24}
+gw=\${3:-192.168.111.2}
 
 ip addr add \$ipmask dev \$device
 ip route add default via \$gw
